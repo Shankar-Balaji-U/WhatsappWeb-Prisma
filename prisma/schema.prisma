@@ -1,0 +1,116 @@
+/// This is your Prisma schema file,
+/// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              Int               @id @default(autoincrement()) @map("_id")
+  createdAt       DateTime          @default(now())
+  firstName       String?
+  lastName        String?
+  // username String @unique
+  mobile          String            @unique
+  email           String?
+  password        String
+  hashPassword    String
+  isActive        Boolean           @default(true)
+  contacts        Contact[]
+  role            Int               @default(0) // { 0: USER, 1: ADMIN }
+  messages PersonalMessage[]
+  room    PersonalRoom[]
+}
+
+model Contact {
+  mobile String @unique
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int    @id
+}
+
+model PersonalMessage {
+  id        String                  @id @default(uuid())
+  sender    User                    @relation(fields: [senderId], references: [id])
+  senderId  Int
+  room      PersonalRoom            @relation(fields: [roomId], references: [id])
+  roomId    String
+  content   PersonalMessageContent?
+  createdAt DateTime                @default(now())
+  updatedAt DateTime                @updatedAt
+}
+
+model PersonalMessageContent {
+  message   PersonalMessage @relation(fields: [messageId], references: [id])
+  messageId String          @id
+  type      Int             @default(0) // { 0: TEXT, 1: EMOJI, 2: IMAGE, 3: VIDEO, 4: DOCUMENT, 5: GIF, 6: STICKER }
+  text      String?
+  path      String?
+}
+
+model PersonalRoom {
+  id        String            @id @default(uuid())
+  createdAt DateTime          @default(now())
+  members   User[]
+  messages  PersonalMessage[]
+}
+
+/// model User {
+///   /// id            Int       @id @default(autoincrement()) @map("_id") @db.ObjectId
+///   /// createdAt     DateTime  @default(now())
+
+///   mobile        String    @unique @db.VarChar(16)
+///   /// email         String            @db.String(50)
+///   /// username      String            @db.String(20)
+///   /// password      String            @db.String(20)
+///   /// hashPassword  String            @db.String(20)
+///   /// firstName     String            @db.String(30)
+///   /// lastName      String            @db.String(30)
+///   /// role          Role      @default(USER)
+///   /// isActive      Boolean   @default(true)
+///   /// contacts      User[]    @relation("ContactList")
+/// }
+
+/// model PersonalMessage {
+///   id          String      @id @default(uuid())
+///   createdAt   DateTime    @default(now())
+///   updatedAt   DateTime    @updatedAt
+
+///   sender      User        @relation(fields: [senderId], references: [id])
+///   senderId    Int
+///   roomId      String
+///   type        MessageType @default(TEXT)
+///   context     String
+///   url         String?
+/// }
+
+/// /// model PersonalRoom {
+
+/// /// }
+
+/// /// model GroupRoom {
+/// ///   profile
+/// ///   description
+/// ///   createdAt   DateTime @default(now())
+
+/// ///   createdBy User
+/// ///   members User[]
+/// ///   admin User[]
+/// /// }
+
+/// /// model Post {
+/// ///   id         Int        @id @default(autoincrement())
+/// ///   createdAt  DateTime   @default(now())
+
+/// ///   title      String
+/// ///   published  Boolean    @default(false)
+/// ///   author     User       @relation(fields: [authorId], references: [id])
+/// ///   authorId   Int
+/// ///   categories Category[] @relation(references: [id])
+
+/// ///   @@unique([authorId, title])
+/// /// }

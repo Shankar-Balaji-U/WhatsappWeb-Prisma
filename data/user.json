@@ -1,0 +1,46 @@
+{
+	"data": [
+		{
+			"firstName": "Shankar",
+			"lastName": "Balaji",
+			"mobile": "9043383149",
+			"email": "shankar369u@gmail.com",
+			"password": "testing321"
+		},
+		{
+			"firstName": "Prasanth",
+			"lastName": "J",
+			"mobile": "7358239459",
+			"email": "prasanth@gmail.com",
+			"password": "testing321"
+		},
+		{
+			"firstName": "Ajis",
+			"lastName": "Mohmmad",
+			"mobile": "9600535481",
+			"email": "ajis@gmail.com",
+			"password": "testing321"
+		},
+		{
+			"firstName": "Dharmaraj",
+			"lastName": "",
+			"mobile": "8098840506",
+			"email": "dharmaraj@gmail.com",
+			"password": "testing321"
+		},
+		{
+			"firstName": "Deepika",
+			"lastName": "B",
+			"mobile": "7358020586",
+			"email": "deepika@gmail.com",
+			"password": "testing321"
+		},
+		{
+			"firstName": "Vani",
+			"lastName": "Sri",
+			"mobile": "7339339032",
+			"email": "vanima@gmail.com",
+			"password": "testing321"
+		}
+	]
+}
